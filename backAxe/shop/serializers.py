@@ -20,4 +20,5 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model=models.Product
         fields='__all__'
+        depth=1
 

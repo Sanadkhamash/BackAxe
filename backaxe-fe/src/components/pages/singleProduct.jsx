@@ -1,7 +1,6 @@
-import React from 'react'
+import React from "react";
+import { Product } from "../organisms/singleProduct";
 
 export const SingleProduct = () => {
-  return (
-    <div>S</div>
-  )
-}
+  return <Product title="The product" />;
+};
