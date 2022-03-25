@@ -11,6 +11,24 @@ export const getCategories = async (setCategory) => {
       console.log(err);
     });
 };
+
+export const GetProduct = async (id, setProduct) => {
+  const headers = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  axios
+    .get(`http://127.0.0.1:8000/shop/products/${id}/`)
+    .then((res) => {
+      setProduct(res.data);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 export const AddProduct = async (data) => {
   const headers = {
     headers: {

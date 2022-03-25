@@ -1,5 +1,7 @@
 import { Container } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { GetProduct } from "../../api/shop";
 
 export const Product = ({ title }) => {
   const mainStyles = {
@@ -8,32 +10,45 @@ export const Product = ({ title }) => {
     justifyContent: "center",
     alignItems: "space-around",
   };
+  const headerStyles = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
+  };
+  const { id } = useParams();
+  let [product, setProduct] = useState();
+
+  useEffect(() => {
+    GetProduct(id, setProduct);
+  }, []);
 
   return (
     <>
-      <Container maxWidth="lg">
-        <h1>{title}</h1>
-        <div className="main" style={mainStyles}>
-          <div>
-            <img src="http://i.imgur.com/BCbxVui.png" />
+      {product ? (
+        <Container maxWidth="lg">
+          <div className="prod_header" style={{ headerStyles }}>
+            <h1>{product.name}</h1>
           </div>
-          <div>
-            <p>Username</p>
-            <p>prodcut name</p>
-            <p>Price</p>
-            <p>Quantity</p>
-            <p>
-              description: Lorem ipsum, dolor sit amet consectetur adipisicing
-              elit. Illum cumque illo quibusdam vel eaque atque, molestiae
-              consequuntur dolorum, aut non facilis enim nam ex molestias.
-              Aspernatur ullam nemo alias quo facilis! Accusantium consectetur,
-              ipsum repellat numquam voluptatibus quam esse velit natus quasi
-              veniam corrupti id voluptate aliquam quaerat repudiandae
-              doloribus.
-            </p>
+          <p>Posted: {product.date}</p>
+          <div className="main" style={mainStyles}>
+            <div style={{ width: "85%" }}>
+              <img
+                style={{ width: "85%" }}
+                src="http://i.imgur.com/BCbxVui.png"
+              />
+            </div>
+            <div>
+              <p>Posted By: Username</p>
+              <p>{product.name}</p>
+              <p>Price: {product.price}</p>
+              <p>Quantity Left: {product.quantity}</p>
+              <p>Description: {product.description}</p>
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      ) : (
+        <h1>Loading</h1>
+      )}
     </>
   );
 };
