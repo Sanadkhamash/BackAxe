@@ -3,8 +3,6 @@ from . import models, serializers
 from rest_framework.response import Response
 
 
-# Create your views here.
-
 class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class=serializers.CategorySerializer
     queryset=models.Category.objects.all()

@@ -68,3 +68,15 @@ export const getMakes = async (setMakes) => {
       console.log(err);
     });
 };
+
+export const getOneCategory = async (setCat, id) => {
+  axios
+    .get(`http://127.0.0.1:8000/shop/category/${id}/`)
+    .then((res) => {
+      setCat(res.data);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

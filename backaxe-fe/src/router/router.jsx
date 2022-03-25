@@ -28,9 +28,9 @@ export function UserRouter() {
         <NavBar />
         <Switch>
           <Route path="/" element={<Home />} />
+          <Route path="/category/:id" element={<Shop />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="/add-product" element={<AddForm />} />
-          <Route path="/shop" element={<Shop />} />
           <Route path="/shop/:id" element={<SingleProduct />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/product" element={<SingleProduct />} />
