@@ -8,6 +8,8 @@ import { SingleProduct } from "../components/pages/singleProduct";
 import { Shop } from "../components/pages/shop";
 import { UserProfile } from "../components/pages/userProfile";
 import { NavBar } from "../components/organisms/NavBar";
+import { RegForm } from "../components/molecules/regForm";
+import { SignIn } from "../components/molecules/loginForm";
 
 export function AdminRouter() {
   return (
@@ -34,6 +36,8 @@ export function UserRouter() {
           <Route path="/shop/:id" element={<SingleProduct />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/product" element={<SingleProduct />} />
+          <Route path="/register" element={<RegForm />} />
+          <Route path="/signin" element={<SignIn />} />
         </Switch>
       </BrowserRouter>
     </>
