@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
+import CategoryContainer from "../organisms/categoryContainer";
 
 export const Shop = () => {
   return (
-    <div>shop</div>
-  )
-}
+    <>
+      <CategoryContainer />
+    </>
+  );
+};
