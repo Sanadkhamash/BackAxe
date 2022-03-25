@@ -19,7 +19,6 @@ class ProductViewSet(viewsets.ModelViewSet):
         for category in data["category"]:
             print(category)
         product.save(category = models.Category.objects.get(id = int(data["category"]["id"])))
-
         # product.category.add(category_obj)
         serializer = serializers.ProductSerializer(product)
         return Response(serializer.data)
