@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
 import { Link } from "react-router-dom";
 
-export const TopBar = () => {
+export const TopBar = ({ name }) => {
   return (
     <AppBar position="relative">
       <Toolbar>
@@ -17,7 +17,7 @@ export const TopBar = () => {
           >
         </Typography>
         <Typography variant="p" color="inherit" noWrap>
-          Categories
+          {name}
         </Typography>
       </Toolbar>
     </AppBar>

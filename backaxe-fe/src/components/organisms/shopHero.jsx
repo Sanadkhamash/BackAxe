@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-export const ShopHero = () => {
+export const ShopHero = ({ name }) => {
   return (
     <Box
       sx={{
@@ -22,7 +22,7 @@ export const ShopHero = () => {
           color="text.primary"
           gutterBottom
         >
-          Categories
+          {name}
         </Typography>
         <Stack
           sx={{ pt: 4 }}

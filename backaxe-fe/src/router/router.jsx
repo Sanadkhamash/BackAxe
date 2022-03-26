@@ -8,12 +8,15 @@ import { SingleProduct } from "../components/pages/singleProduct";
 import { Shop } from "../components/pages/shop";
 import { UserProfile } from "../components/pages/userProfile";
 import { NavBar } from "../components/organisms/NavBar";
+import { RegForm } from "../components/molecules/regForm";
+import { SignIn } from "../components/molecules/loginForm";
+import Dashboard from "../components/pages/admin";
 
 export function AdminRouter() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" element={<CategoryContainer />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/shop/:id" element={<ProductContainer />} />
         <Route path="/add-product" element={<AddForm />} />
       </Switch>
@@ -28,12 +31,14 @@ export function UserRouter() {
         <NavBar />
         <Switch>
           <Route path="/" element={<Home />} />
+          <Route path="/category/:id" element={<Shop />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="/add-product" element={<AddForm />} />
-          <Route path="/shop" element={<Shop />} />
           <Route path="/shop/:id" element={<SingleProduct />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/product" element={<SingleProduct />} />
+          <Route path="/register" element={<RegForm />} />
+          <Route path="/signin" element={<SignIn />} />
         </Switch>
       </BrowserRouter>
     </>

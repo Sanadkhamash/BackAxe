@@ -5,26 +5,30 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { TopBar } from "../organisms/TopBar";
 import { ShopHero } from "../organisms/shopHero";
 import { Footer } from "../organisms/Footer";
-import { getCategories } from "../../api/shop";
+import { getSingleCategory, getOneCategory } from "../../api/shop";
+import { useParams } from "react-router-dom";
 
 export const Shop = () => {
   const theme = createTheme();
+  let [products, setProducts] = React.useState(0);
   let [category, setCategory] = React.useState(0);
+  let { id } = useParams();
 
   React.useEffect(() => {
-    getCategories(setCategory);
+    getSingleCategory(setProducts, id);
+    getOneCategory(setCategory, id);
   }, []);
 
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {category && console.log(category)}
-        {category ? (
+        {products && console.log(products)}
+        {products ? (
           <>
-            <TopBar category={category} />
-            <ShopHero />
-            <CategoryContainer category={category} />
+            <TopBar name={category.name} />
+            <ShopHero name={category.name} />
+            <CategoryContainer products={products} />
           </>
         ) : (
           <h1>PLEASE WAIT...</h1>

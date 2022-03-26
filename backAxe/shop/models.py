@@ -5,6 +5,7 @@ from django.db import models
 class Category(models.Model):
     name=models.CharField(max_length=50)
     description=models.TextField()
+    image = models.CharField(max_length=255, default="https://renault.jo/CountriesData/Jordan_EN/images/conceptcars/renault-concept-car-014_ig_w800_h450.jpg")
     def __str__(self):
         return self.name
 
