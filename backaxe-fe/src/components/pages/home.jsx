@@ -4,24 +4,27 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import ListSubheader from "@mui/material/ListSubheader";
 import IconButton from "@mui/material/IconButton";
-import InfoIcon from "@mui/icons-material/Info";
 import { getCategories } from "../../api/shop";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { useNavigate } from "react-router-dom";
+import { UserStatus } from "../../App";
 
 export function Home() {
+  let navigate = useNavigate();
+
+  let [category, setCategory] = React.useState(0);
+
   let catalogStyle = {
     display: "flex",
     justifyContent: "center",
   };
 
-  let [category, setCategory] = React.useState(0);
-
   React.useEffect(() => {
     getCategories(setCategory);
   }, []);
 
-  let navigate = useNavigate();
+  const { value } = React.useContext(UserStatus);
+  let [loggedUser, setLoggedUser] = value;
 
   return (
     <div className="catalog" style={catalogStyle}>
@@ -37,6 +40,7 @@ export function Home() {
               }}
               key={item.id}
             >
+              <h1>{loggedUser ? "Logged in" : "Not Loggedin"}</h1>
               <img
                 src={`${item.image}`}
                 srcSet={`${item.image}`}

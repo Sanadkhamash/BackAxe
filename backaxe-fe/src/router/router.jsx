@@ -10,12 +10,13 @@ import { UserProfile } from "../components/pages/userProfile";
 import { NavBar } from "../components/organisms/NavBar";
 import { RegForm } from "../components/molecules/regForm";
 import { SignIn } from "../components/molecules/loginForm";
+import Dashboard from "../components/pages/admin";
 
 export function AdminRouter() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" element={<CategoryContainer />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/shop/:id" element={<ProductContainer />} />
         <Route path="/add-product" element={<AddForm />} />
       </Switch>

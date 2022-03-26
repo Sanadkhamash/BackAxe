@@ -29,16 +29,3 @@ class ReportsViewSet(viewsets.ModelViewSet):
     queryset=models.Report.objects.all()
 
 
-class RegisterUser(viewsets.ModelViewSet):
-    serializer_class = serializers.RegisterSerializer
-    queryset=DjangoUser.objects.all()
-
-    def get_permissions(self):
-        if self.action == 'create':
-            self.permission_classes = [permissions.AllowAny]
-        elif self.action in ['list', 'delete']:
-            self.permission_classes = [permissions.IsAdminUser]
-        elif self.action in ['update','retrieve']:
-            self.permission_classes = [permissions.IsAuthenticated]
-        return super(self.__class__, self).get_permissions()
-
