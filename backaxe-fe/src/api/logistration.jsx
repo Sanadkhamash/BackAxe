@@ -1,11 +1,12 @@
 import React from "react";
 import axios from "axios";
+import axiosService from "../utils";
 
 export const getIfUserCanLogIn = async (data, setToken) => {
   console.log("dakhla;");
   JSON.stringify(data);
 
-  axios
+  axiosService
     .post("http://127.0.0.1:8000/auth1/login/", data)
     .then((res) => {
       localStorage.setItem("access", JSON.stringify(res.data.access));
@@ -20,15 +21,19 @@ export const getIfUserCanLogIn = async (data, setToken) => {
 };
 
 export const RegisterUser = (data, setToken) => {
-  axios
-    .post("http://127.0.0.1:8000/users/reg/", data, {
-      headers: {
-        Authorization: localStorage.getItem("access_token")
-          ? "JWT " + localStorage.getItem("access_token")
-          : null,
-        "Content-Type": "application/json",
-        accept: "application/json",
-      },
-    })
+  axiosService
+    .post("http://127.0.0.1:8000/auth1/register/", data)
     .then((res) => console.log(res));
+};
+
+export const GetUser = (id, setUser) => {
+  axios
+    .get(`http://127.0.0.1:8000/users/get/${id}/`)
+    .then((res) => {
+      setUser(res.data);
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

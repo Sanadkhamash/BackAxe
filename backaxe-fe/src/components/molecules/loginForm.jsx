@@ -16,12 +16,13 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { UserStatus } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 export function SignIn() {
   const [canLogin, setCanLogin] = useState(false);
   const [token, setUserToken] = useState(null);
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({
     username: false,
     password: false,
@@ -57,6 +58,7 @@ export function SignIn() {
       };
       console.log(userData);
       setLoggedUser(await getIfUserCanLogIn(userData, setUserToken));
+      if (loggedUser) navigate("/");
     }
   };
 
@@ -111,13 +113,14 @@ export function SignIn() {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link
+                onClick={() => {
+                  navigate("/register");
+                }}
+                variant="body2"
+                style={{ cursor: "pointer" }}
+              >
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

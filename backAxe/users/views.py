@@ -10,6 +10,9 @@ from rest_framework.settings import api_settings
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.UserSerializer
+    queryset = DjangoUser.objects.all()
 
 class UserInfoViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserInfoSerializer
@@ -21,7 +24,7 @@ class UserInfoViewSet(viewsets.ModelViewSet):
         elif self.action in ['list', 'delete']:
             self.permission_classes = [permissions.IsAdminUser]
         elif self.action in ['update','retrieve']:
-            self.permission_classes = [permissions.IsAuthenticated]
+            self.permission_classes = [permissions.AllowAny]
         return super(self.__class__, self).get_permissions()
 
 class ReportsViewSet(viewsets.ModelViewSet):

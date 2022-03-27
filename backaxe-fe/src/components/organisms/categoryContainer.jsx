@@ -19,43 +19,46 @@ export default function CategoryContainer({ products }) {
           {products &&
             products.map((item) => {
               return (
-                <Grid item xs={12} sm={6} md={4}>
-                  <Card
+                <Card
+                  sx={{
+                    height: "50%",
+                    width: "100%",
+                    display: "flex",
+                    marginBottom: "2.5%",
+                  }}
+                >
+                  <CardMedia
+                    component="img"
                     sx={{
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
+                      pt: 0,
+                      width: "300px",
+                      height: "160px",
                     }}
-                  >
-                    <CardMedia
-                      component="img"
-                      sx={{
-                        pt: 0,
+                    image={item.image}
+                    alt="random"
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {item.name}
+                    </Typography>
+                    <Typography>a{item.description}</Typography>
+                    <h5>JOD{item.price}</h5>
+                    {item.category.map((item) => {
+                      return <small>{item.name}</small>;
+                    })}
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      onClick={() => {
+                        navigate(`/shop/${item.id}`);
                       }}
-                      image="https://source.unsplash.com/random"
-                      alt="random"
-                    />
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {item.name}
-                      </Typography>
-                      <Typography>
-                        This is a media card. You can use this section to
-                        describe the content.
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        onClick={() => {
-                          navigate(`/shop/${item.id}`);
-                        }}
-                        size="small"
-                      >
-                        Shop
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
+                      size="small"
+                    >
+                      See More>>
+                    </Button>
+                  </CardActions>
+                </Card>
+                // </Grid>
               );
             })}
           ;

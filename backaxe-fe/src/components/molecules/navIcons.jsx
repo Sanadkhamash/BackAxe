@@ -6,10 +6,14 @@ import HomeIcon from "@mui/icons-material/Home";
 import CarRepairIcon from "@mui/icons-material/CarRepair";
 import InfoIcon from "@mui/icons-material/Info";
 import { useNavigate } from "react-router-dom";
+import { UserStatus } from "../../App";
 
 export default function IconLabelTabs() {
-  const [value, setValue] = React.useState(0);
+  const [value1, setValue] = React.useState(0);
   const navigate = useNavigate();
+
+  const { value } = React.useContext(UserStatus);
+  let [loggedUser, setLoggedUser] = value;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -17,7 +21,7 @@ export default function IconLabelTabs() {
 
   return (
     <Tabs
-      value={value}
+      value={value1}
       onChange={handleChange}
       aria-label="icon label tabs example"
     >
@@ -29,6 +33,21 @@ export default function IconLabelTabs() {
       />
       <Tab icon={<PersonPinIcon />} label="Profile" />
       <Tab icon={<InfoIcon />} label="About Us" />
+      {!loggedUser ? (
+        <>
+          <Tab icon={<InfoIcon />} label="Sign Up" />
+          <Tab icon={<InfoIcon />} label="Sing In" />
+        </>
+      ) : (
+        <Tab
+          icon={<InfoIcon />}
+          label="Sign Out"
+          onClick={() => {
+            localStorage.removeItem("access", "refresh", "user");
+            setLoggedUser(null);
+          }}
+        />
+      )}
     </Tabs>
   );
 }

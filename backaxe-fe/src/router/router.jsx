@@ -1,4 +1,4 @@
-import CategoryContainer from "../components/organisms/categoryContainer";
+import React from "react";
 import ProductContainer from "../components/organisms/singleCatContainer";
 import { BrowserRouter, Routes as Switch, Route } from "react-router-dom";
 import { AddForm } from "../components/molecules/addForm";
@@ -11,6 +11,8 @@ import { NavBar } from "../components/organisms/NavBar";
 import { RegForm } from "../components/molecules/regForm";
 import { SignIn } from "../components/molecules/loginForm";
 import Dashboard from "../components/pages/admin";
+import { UserPage } from "../components/pages/UserPage";
+import { UserStatus } from "../App";
 
 export function AdminRouter() {
   return (
@@ -25,6 +27,8 @@ export function AdminRouter() {
 }
 
 export function UserRouter() {
+  const { value } = React.useContext(UserStatus);
+  let [loggedUser, setLoggedUser] = value;
   return (
     <>
       <BrowserRouter>
@@ -36,9 +40,9 @@ export function UserRouter() {
           <Route path="/add-product" element={<AddForm />} />
           <Route path="/shop/:id" element={<SingleProduct />} />
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/product" element={<SingleProduct />} />
           <Route path="/register" element={<RegForm />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signin" element={!loggedUser ? <SignIn /> : <Home />} />
+          <Route path="/user/:id" element={<UserPage />} />
         </Switch>
       </BrowserRouter>
     </>

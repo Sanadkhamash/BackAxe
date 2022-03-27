@@ -12,5 +12,7 @@ router.register(r'countries', views.CountryViewSet, basename='countries')
 router.register(r'makes', views.MakeViewSet, basename='makes')
 
 urlpatterns = [
-    path('',include(router.urls))
+    path('',include(router.urls)),
+    path(r'product/listsingleuser/<int:id>', views.ListSingleUserProduct.as_view(),name='singleuser'),
+    path(r'product/Category/Make/<int:cat_id>/<int:id>', views.ListProductsByCategoryAndMake.as_view(),name='productbymake')
 ]

@@ -24,15 +24,6 @@ export const ShopHero = ({ name }) => {
         >
           {name}
         </Typography>
-        <Stack
-          sx={{ pt: 4 }}
-          direction="row"
-          spacing={2}
-          justifyContent="center"
-        >
-          <Button variant="contained">Main call to action</Button>
-          <Button variant="outlined">Secondary action</Button>
-        </Stack>
       </Container>
     </Box>
   );

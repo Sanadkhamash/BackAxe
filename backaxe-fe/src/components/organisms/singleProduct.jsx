@@ -1,9 +1,8 @@
 import { Container } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { GetProduct } from "../../api/shop";
+import { Link } from "react-router-dom";
+import React from "react";
 
-export const Product = ({ title }) => {
+export const Product = ({ product }) => {
   const mainStyles = {
     display: "flex",
     flexDirection: "column",
@@ -15,40 +14,32 @@ export const Product = ({ title }) => {
     alignItems: "center",
     justifyContent: "space-around",
   };
-  const { id } = useParams();
-  let [product, setProduct] = useState();
-
-  useEffect(() => {
-    GetProduct(id, setProduct);
-  }, []);
 
   return (
     <>
-      {product ? (
-        <Container maxWidth="lg">
-          <div className="prod_header" style={{ headerStyles }}>
-            <h1>{product.name}</h1>
+      <Container maxWidth="lg">
+        <div className="prod_header" style={{ headerStyles }}>
+          <h1>{product.name}</h1>
+        </div>
+        <p>Posted: {product.date}</p>
+        <div className="main" style={mainStyles}>
+          <div style={{ width: "85%" }}>
+            <img style={{ width: "85%" }} src={product.image} />
           </div>
-          <p>Posted: {product.date}</p>
-          <div className="main" style={mainStyles}>
-            <div style={{ width: "85%" }}>
-              <img
-                style={{ width: "85%" }}
-                src="http://i.imgur.com/BCbxVui.png"
-              />
-            </div>
-            <div>
-              <p>Posted By: Username</p>
-              <p>{product.name}</p>
-              <p>Price: {product.price}</p>
-              <p>Quantity Left: {product.quantity}</p>
-              <p>Description: {product.description}</p>
-            </div>
+          <div>
+            <p>
+              Posted By:{" "}
+              <Link to={`/user/${product.user.id}`}>
+                {product.user.username}
+              </Link>
+            </p>
+            <p>{product.name}</p>
+            <p>Price: {product.price}</p>
+            <p>Quantity Left: {product.quantity}</p>
+            <p>Description: {product.description}</p>
           </div>
-        </Container>
-      ) : (
-        <h1>Loading</h1>
-      )}
+        </div>
+      </Container>
     </>
   );
 };

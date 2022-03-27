@@ -4,21 +4,35 @@ import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
 import { Link } from "react-router-dom";
 
-export const TopBar = ({ name }) => {
+export const TopBar = ({ category, product, username }) => {
   return (
     <AppBar position="relative">
       <Toolbar>
         <Link to="/">
           <Typography variant="p" color="white" noWrap>
-            Home
+            <Link style={{ color: "white" }} to="/">
+              Home
+            </Link>
           </Typography>
         </Link>
-        <Typography variant="p" color="inherit" noWrap>
-          >
-        </Typography>
-        <Typography variant="p" color="inherit" noWrap>
-          {name}
-        </Typography>
+        {category && (
+          <Typography variant="p" color="inherit" noWrap>
+            {">"}
+            {category.name}
+          </Typography>
+        )}
+        {product && (
+          <Typography variant="p" color="inherit" noWrap>
+            {">"}
+            {product}
+          </Typography>
+        )}
+        {username && (
+          <Typography variant="p" color="inherit" noWrap>
+            {">"}
+            {username}
+          </Typography>
+        )}
       </Toolbar>
     </AppBar>
   );

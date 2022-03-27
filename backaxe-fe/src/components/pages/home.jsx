@@ -19,12 +19,13 @@ export function Home() {
     justifyContent: "center",
   };
 
-  React.useEffect(() => {
-    getCategories(setCategory);
-  }, []);
-
   const { value } = React.useContext(UserStatus);
   let [loggedUser, setLoggedUser] = value;
+
+  React.useEffect(() => {
+    getCategories(setCategory);
+    console.log(value);
+  }, []);
 
   return (
     <div className="catalog" style={catalogStyle}>
@@ -40,7 +41,6 @@ export function Home() {
               }}
               key={item.id}
             >
-              <h1>{loggedUser ? "Logged in" : "Not Loggedin"}</h1>
               <img
                 src={`${item.image}`}
                 srcSet={`${item.image}`}

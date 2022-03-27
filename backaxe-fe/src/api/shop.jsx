@@ -3,7 +3,7 @@ import axios from "axios";
 import axiosService from "../utils";
 
 export const getCategories = async (setCategory) => {
-  axios
+  axiosService
     .get("http://127.0.0.1:8000/shop/category/")
     .then((res) => {
       setCategory(res.data);
@@ -14,7 +14,7 @@ export const getCategories = async (setCategory) => {
 };
 
 export const getAllProducts = async (setProducts) => {
-  axios
+  axiosService
     .get("http://127.0.0.1:8000/shop/products/")
     .then((res) => {
       setProducts(res.data);
@@ -60,7 +60,7 @@ export const AddProduct = async (data) => {
 };
 
 export const getSingleCategory = async (setProducts, id) => {
-  axios
+  axiosService
     .get(`http://127.0.0.1:8000/shop/category/prod/${id}/`)
     .then((res) => {
       setProducts(res.data);
@@ -72,7 +72,7 @@ export const getSingleCategory = async (setProducts, id) => {
 };
 
 export const getMakes = async (setMakes) => {
-  axios
+  axiosService
     .get(`http://127.0.0.1:8000/shop/makes/`)
     .then((res) => {
       setMakes(res.data);
@@ -84,11 +84,55 @@ export const getMakes = async (setMakes) => {
 };
 
 export const getOneCategory = async (setCat, id) => {
-  axios
+  axiosService
     .get(`http://127.0.0.1:8000/shop/category/${id}/`)
     .then((res) => {
       setCat(res.data);
       console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getUserProducts = async (setProducts, userId) => {
+  axiosService
+    .get(`http://127.0.0.1:8000/shop/product/listsingleuser/${userId}`)
+    .then((res) => {
+      setProducts(res.data);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getAllMakes = async (setMakes) => {
+  axiosService
+    .get(`http://127.0.0.1:8000/shop/makes`)
+    .then((res) => {
+      setMakes(res.data);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const getProductsByMakesAndCategory = async (
+  setMakes,
+  makeId,
+  categoryId
+) => {
+  axiosService
+    .get(
+      `http://127.0.0.1:8000/shop/product/Category/Make/${categoryId}/${makeId}`
+    )
+    .then((res) => {
+      setMakes(res.data);
+      console.log("Resultis", res);
+      console.log(
+        `http://127.0.0.1:8000/shop/product/Category/Make/${categoryId}/${makeId}`
+      );
     })
     .catch((err) => {
       console.log(err);
