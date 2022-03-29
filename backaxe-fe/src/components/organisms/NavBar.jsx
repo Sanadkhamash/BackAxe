@@ -90,20 +90,22 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import { getCategories } from "../../api/shop";
+import { getCategories, getMakes } from "../../api/shop";
 import { UserStatus } from "../../App";
 
 export function NavBar() {
   const navigate = useNavigate();
   const { value } = React.useContext(UserStatus);
   let [loggedUser, setLoggedUser] = value;
+  let [makes, setMakes] = React.useState(0);
 
   let [category, setCategory] = React.useState(0);
   React.useEffect(() => {
     getCategories(setCategory);
+    getMakes(setMakes);
   }, []);
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar style={{ zIndex: 1300 }} bg="light" expand="lg">
       <Container fluid>
         <Navbar.Brand
           style={{ cursor: "pointer" }}
@@ -134,17 +136,17 @@ export function NavBar() {
                 })}
             </NavDropdown>
             <NavDropdown title="Makes" id="navbarScrollingDropdown">
-              {/* {make &&
-                make.map((item) => {
+              {makes &&
+                makes.map((item) => {
                   return (
                     <NavDropdown.Item
                       key={item.id}
-                      href={`http://localhost:3000/category/${item.id}`}
+                      href={`http://localhost:3000/makes/${item.id}`}
                     >
                       {item.name}
                     </NavDropdown.Item>
                   );
-                })} */}
+                })}
             </NavDropdown>
           </Nav>
           <Form className="d-flex">

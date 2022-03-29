@@ -8,8 +8,8 @@ from shop import models as ShopModels
 
 
 class Transaction(models.Model):
-    buyer=models.ForeignKey(UserModels.UserInfo, on_delete=models.CASCADE, related_name='buyer')
-    seller=models.ForeignKey(UserModels.UserInfo, on_delete=models.CASCADE, related_name='seller')
+    buyer=models.ForeignKey(UserModels.DjangoUser, on_delete=models.CASCADE, related_name='buyer')
+    seller=models.ForeignKey(UserModels.DjangoUser, on_delete=models.CASCADE, related_name='seller')
     product=models.OneToOneField(ShopModels.Product, on_delete=models.CASCADE, default=0)
     date=models.DateField(auto_now=True)
     time=models.TimeField(auto_now=True)

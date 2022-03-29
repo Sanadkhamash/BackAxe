@@ -13,6 +13,9 @@ import { SignIn } from "../components/molecules/loginForm";
 import Dashboard from "../components/pages/admin";
 import { UserPage } from "../components/pages/UserPage";
 import { UserStatus } from "../App";
+import { Info } from "../components/organisms/info";
+import { UserProducts } from "../components/organisms/userProducts";
+import CategoryContainer from "../components/organisms/categoryContainer";
 
 export function AdminRouter() {
   return (
@@ -37,12 +40,15 @@ export function UserRouter() {
           <Route path="/" element={<Home />} />
           <Route path="/category/:id" element={<Shop />} />
           <Route path="about" element={<AboutUs />} />
-          <Route path="/add-product" element={<AddForm />} />
           <Route path="/shop/:id" element={<SingleProduct />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/register" element={<RegForm />} />
           <Route path="/signin" element={!loggedUser ? <SignIn /> : <Home />} />
-          <Route path="/user/:id" element={<UserPage />} />
+          <Route path="/user/:id" element={<UserPage />}>
+            <Route path="info" element={<Info />} />
+            <Route path="products" element={<CategoryContainer />} />
+            <Route path="add" element={<AddForm />} />
+          </Route>
         </Switch>
       </BrowserRouter>
     </>

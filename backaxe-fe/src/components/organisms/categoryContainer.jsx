@@ -7,14 +7,20 @@ import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getSingleCategory, getUserProducts } from "../../api/shop";
 
-export default function CategoryContainer({ products }) {
+export default function CategoryContainer({ shop }) {
   let navigate = useNavigate();
+  let [products, setProduct] = React.useState();
+  let { id } = useParams();
+  React.useEffect(() => {
+    !shop ? getUserProducts(setProduct, id) : getSingleCategory(setProduct, id);
+  }, []);
 
   return (
     <main>
-      <Container sx={{ py: 8 }} maxWidth="md">
+      <Container sx={{ py: 8 }} maxWidth="md" style={{ margin: "0 0 0 25%" }}>
         <Grid container spacing={4}>
           {products &&
             products.map((item) => {
@@ -61,9 +67,7 @@ export default function CategoryContainer({ products }) {
                 // </Grid>
               );
             })}
-          ;
         </Grid>
-        ;
       </Container>
     </main>
   );

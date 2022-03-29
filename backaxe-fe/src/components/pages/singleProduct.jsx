@@ -17,7 +17,6 @@ export const SingleProduct = () => {
     <>
       {product ? (
         <>
-          <TopBar product={product.name} />
           <Product product={product} />
         </>
       ) : (

@@ -27,8 +27,20 @@ export const RegisterUser = (data, setToken) => {
 };
 
 export const GetUser = (id, setUser) => {
-  axios
+  axiosService
     .get(`http://127.0.0.1:8000/users/get/${id}/`)
+    .then((res) => {
+      setUser(res.data);
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const GetUserInfo = (id, setUser) => {
+  axiosService
+    .get(`http://127.0.0.1:8000/users/root/${id}/`)
     .then((res) => {
       setUser(res.data);
       console.log(res.data);

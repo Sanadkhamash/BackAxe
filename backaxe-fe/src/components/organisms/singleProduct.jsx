@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import React from "react";
 
@@ -17,28 +17,52 @@ export const Product = ({ product }) => {
 
   return (
     <>
-      <Container maxWidth="lg">
-        <div className="prod_header" style={{ headerStyles }}>
-          <h1>{product.name}</h1>
-        </div>
-        <p>Posted: {product.date}</p>
-        <div className="main" style={mainStyles}>
-          <div style={{ width: "85%" }}>
-            <img style={{ width: "85%" }} src={product.image} />
-          </div>
-          <div>
-            <p>
-              Posted By:{" "}
-              <Link to={`/user/${product.user.id}`}>
-                {product.user.username}
-              </Link>
-            </p>
-            <p>{product.name}</p>
-            <p>Price: {product.price}</p>
-            <p>Quantity Left: {product.quantity}</p>
-            <p>Description: {product.description}</p>
-          </div>
-        </div>
+      <Container className="min-vh-90">
+        <Row className="my-5">
+          <Col>
+            <div>
+              <img style={{ width: "90%" }} src={product.image} />
+            </div>
+          </Col>
+          <Col>
+            <div className="main" style={mainStyles}>
+              <div className="prod_header" style={{ headerStyles }}>
+                <h1 className="fw-bolder">{product.name.toUpperCase()}</h1>
+              </div>
+              <div className="fs-4">
+                <p>
+                  <span className="fw-bolder">Price:</span> {product.price}
+                </p>
+                <p>
+                  <span className="fw-bolder">Quantity:</span>{" "}
+                  {product.quantity}
+                </p>
+                <p>
+                  <span className="fw-bolder">Posted By:</span>{" "}
+                  <Link to={`/user/${product.user.id}/info`}>
+                    {product.user.username}
+                  </Link>
+                </p>
+                <p>
+                  <span className="fw-bolder">Posted:</span>{" "}
+                  {toString(Date.UTC(product.date))}
+                </p>
+                <button className="btn btn-primary fw-bolder text-uppercase px-3 py-2">
+                  {" "}
+                  Test Button
+                </button>
+              </div>
+            </div>
+          </Col>
+        </Row>
+        <Row className="">
+          <Col>
+            <div>
+              <span className="fw-bolder fs-3">Description:</span>
+              <p>{product.description}</p>
+            </div>
+          </Col>
+        </Row>
       </Container>
     </>
   );

@@ -36,10 +36,11 @@ export function Home() {
         {category &&
           category.map((item) => (
             <ImageListItem
-              onClick={() => {
-                navigate(`/category/${item.id}`);
-              }}
+              // onClick={() => {
+              //   navigate(`/category/${item.id}`);
+              // }}
               key={item.id}
+              href="/category/"
             >
               <img
                 src={`${item.image}`}

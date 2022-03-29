@@ -44,7 +44,7 @@ export const Shop = () => {
                   return <option value={item.id}>{item.name}</option>;
                 })}
             </select>
-            <CategoryContainer products={products} />
+            <CategoryContainer shop={true} />
           </>
         ) : (
           <h1>PLEASE WAIT...</h1>
