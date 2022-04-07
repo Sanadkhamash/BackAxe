@@ -14,7 +14,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     serializer_class=serializers.ProductSerializer
     queryset=models.Product.objects.all()
-    permission_classes = [permissions.AllowAny]
+    # permission_classes = [permissions.AllowAny]
 
     def create(self, request, *args, **kwargs):
         data=request.data
