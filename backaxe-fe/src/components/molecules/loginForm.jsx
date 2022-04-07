@@ -32,7 +32,6 @@ export function SignIn() {
 
   const handleErrors = (e) => {
     if (e.target.username.value.length < 3) {
-      console.log("ejeet");
       setErrors({ ...errors, username: true });
       setCanLogin(false);
     } else setErrors({ ...errors, username: false });
@@ -51,14 +50,13 @@ export function SignIn() {
     const data = new FormData(event.currentTarget);
     handleErrors(event);
     if (canLogin) {
-      console.log("bfdsahjfvdsjhklfasjklfvghdsajlbfv dsa");
       userData = {
         username: data.get("username"),
         password: data.get("password"),
       };
       console.log(userData);
-      setLoggedUser(await getIfUserCanLogIn(userData, setUserToken));
-      if (loggedUser) navigate("/");
+      let loginstatus = await getIfUserCanLogIn(userData, setLoggedUser);
+      if (loginstatus) navigate("/");
     }
   };
 
@@ -73,9 +71,6 @@ export function SignIn() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>

@@ -12,7 +12,6 @@ export default function Slider({ images }) {
       }}
     >
       <Carousel>
-        {console.log(images)}
         {images.map((image) => {
           return (
             <Carousel.Item interval={1500}>

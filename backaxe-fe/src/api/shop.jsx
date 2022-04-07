@@ -18,7 +18,6 @@ export const getAllProducts = async (setProducts) => {
     .get("http://127.0.0.1:8000/shop/products/")
     .then((res) => {
       setProducts(res.data);
-      console.log(res.data);
     })
     .catch((err) => {
       console.log(err);
@@ -36,7 +35,6 @@ export const GetProduct = async (id, setProduct) => {
     .get(`http://127.0.0.1:8000/shop/products/${id}/`, headers)
     .then((res) => {
       setProduct(res.data);
-      console.log(res);
     })
     .catch((err) => {
       console.log(err);
@@ -51,9 +49,7 @@ export const AddProduct = async (data) => {
   };
   axiosService
     .post("http://127.0.0.1:8000/shop/products/", data, headers)
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => {
       console.log(err);
     });
@@ -62,10 +58,7 @@ export const AddProduct = async (data) => {
 export const getSingleCategory = async (setProducts, id) => {
   axiosService
     .get(`http://127.0.0.1:8000/shop/category/prod/${id}/`)
-    .then((res) => {
-      setProducts(res.data);
-      console.log(res);
-    })
+    .then((res) => setProducts(res.data))
     .catch((err) => {
       console.log(err);
     });
@@ -76,7 +69,6 @@ export const getMakes = async (setMakes) => {
     .get(`http://127.0.0.1:8000/shop/makes/`)
     .then((res) => {
       setMakes(res.data);
-      console.log(res);
     })
     .catch((err) => {
       console.log(err);
@@ -88,7 +80,6 @@ export const getOneCategory = async (setCat, id) => {
     .get(`http://127.0.0.1:8000/shop/category/${id}/`)
     .then((res) => {
       setCat(res.data);
-      console.log(res);
     })
     .catch((err) => {
       console.log(err);
@@ -100,7 +91,6 @@ export const getUserProducts = async (setProducts, userId) => {
     .get(`http://127.0.0.1:8000/shop/product/listsingleuser/${userId}`)
     .then((res) => {
       setProducts(res.data);
-      console.log(res);
     })
     .catch((err) => {
       console.log(err);
@@ -112,7 +102,6 @@ export const getAllMakes = async (setMakes) => {
     .get(`http://127.0.0.1:8000/shop/makes`)
     .then((res) => {
       setMakes(res.data);
-      console.log(res);
     })
     .catch((err) => {
       console.log(err);
@@ -129,7 +118,6 @@ export const getProductsByMakesAndCategory = async (
     )
     .then((res) => {
       setMakes(res.data);
-      console.log("Resultis", res);
       console.log(
         `http://127.0.0.1:8000/shop/product/Category/Make/${categoryId}/${makeId}`
       );

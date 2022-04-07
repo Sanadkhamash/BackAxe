@@ -1,67 +1,51 @@
 import React, { useState } from "react";
-import { UserStatus } from "../../App";
-import {
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-} from "@mui/material";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import { useNavigate, useParams } from "react-router-dom";
+import { Divider, Grid, List } from "@mui/material";
+import { Link } from "react-router-dom";
+import Avatar from "@mui/material/Avatar";
 
-export const SideBar = () => {
-  const { value } = React.useContext(UserStatus);
-  let [loggedUser, setLoggedUser] = value;
-  const { id } = useParams();
-  let [user, setUser] = useState();
-  const navigate = useNavigate();
+export const SideBar = ({ category, makes, children, styles }) => {
+  const linkStyle = {
+    textDecoration: "none",
+    color: "black",
+    paddingLeft: "15px",
+  };
 
   return (
-    <Drawer variant="permanent">
-      <Toolbar
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          px: [1],
-        }}
-      >
-        <IconButton>
-          <ChevronLeftIcon />
-        </IconButton>
-      </Toolbar>
-      <Divider />
-      <List component="nav">
-        <React.Fragment>
-          <ListItemButton onClick={() => navigate(`info`)}>
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Info" />
-          </ListItemButton>
-          <ListItemButton onClick={() => navigate(`products`)}>
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Products" />
-          </ListItemButton>
-          {loggedUser?.id == id && (
-            <ListItemButton onClick={() => navigate(`addform`)}>
-              <ListItemIcon>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="Add a Product" />
-            </ListItemButton>
-          )}
-        </React.Fragment>
+    <>
+      <List style={styles} component="nav">
+        <React.Fragment>{children}</React.Fragment>
+        <small style={linkStyle}>Makes:</small>
+        <br />
+        {makes?.map((item, key) => {
+          return (
+            <Grid sx={{ my: 1 }}>
+              <Link to={`/make/${item.id}`} style={linkStyle}>
+                <Avatar
+                  src={item.photo}
+                  style={{ display: "inline-block" }}
+                  sx={{ width: 24, height: 24 }}
+                  alt={item.name}
+                />
+                <span style={{ paddingLeft: "5px" }}>{item.name}</span>
+              </Link>
+            </Grid>
+          );
+        })}
+        <br />
         <Divider sx={{ my: 1 }} />
-        {/* {secondaryListItems} */}
+        <small style={linkStyle}>Categories:</small>
+        <Grid container sx={12} spacing={1}>
+          {category?.map((item) => {
+            return (
+              <Grid item sx={5}>
+                <Link style={linkStyle} to={`/category/${item.id}`}>
+                  {item.name}
+                </Link>
+              </Grid>
+            );
+          })}
+        </Grid>
       </List>
-    </Drawer>
+    </>
   );
 };

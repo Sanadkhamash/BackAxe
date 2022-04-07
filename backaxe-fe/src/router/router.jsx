@@ -6,8 +6,6 @@ import { Home } from "../components/pages/home";
 import { AboutUs } from "../components/pages/aboutUs";
 import { SingleProduct } from "../components/pages/singleProduct";
 import { Shop } from "../components/pages/shop";
-import { UserProfile } from "../components/pages/userProfile";
-import { NavBar } from "../components/organisms/NavBar";
 import { RegForm } from "../components/molecules/regForm";
 import { SignIn } from "../components/molecules/loginForm";
 import Dashboard from "../components/pages/admin";
@@ -16,6 +14,7 @@ import { UserStatus } from "../App";
 import { Info } from "../components/organisms/info";
 import { UserProducts } from "../components/organisms/userProducts";
 import CategoryContainer from "../components/organisms/categoryContainer";
+import { UserContainer } from "../containers/user";
 
 export function AdminRouter() {
   return (
@@ -35,21 +34,25 @@ export function UserRouter() {
   return (
     <>
       <BrowserRouter>
-        <NavBar />
-        <Switch>
-          <Route path="/" element={<Home />} />
-          <Route path="/category/:id" element={<Shop />} />
-          <Route path="about" element={<AboutUs />} />
-          <Route path="/shop/:id" element={<SingleProduct />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/register" element={<RegForm />} />
-          <Route path="/signin" element={!loggedUser ? <SignIn /> : <Home />} />
-          <Route path="/user/:id" element={<UserPage />}>
-            <Route path="info" element={<Info />} />
-            <Route path="products" element={<CategoryContainer />} />
-            <Route path="add" element={<AddForm />} />
-          </Route>
-        </Switch>
+        <UserContainer>
+          <Switch>
+            <Route path="/" element={<Home />} />
+            <Route path="/category/:id" element={<Shop />} />
+            <Route path="about" element={<AboutUs />} />
+            <Route path="/shop/:id" element={<SingleProduct />} />
+            <Route path="/register" element={<RegForm />} />
+            <Route
+              path="/signin"
+              element={!loggedUser ? <SignIn /> : <Home />}
+            />
+            <Route path="/user/:id" element={<UserPage />}>
+              <Route path="info" element={<Info />} />
+              <Route path="products" element={<CategoryContainer />} />
+              <Route path="add" element={<AddForm />} />
+            </Route>
+            <Route path="/la" element={<AboutUs />} />
+          </Switch>
+        </UserContainer>
       </BrowserRouter>
     </>
   );

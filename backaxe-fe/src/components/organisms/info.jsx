@@ -19,8 +19,6 @@ export const Info = () => {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(2, 1fr)",
-            columnGap: "10%",
-            margin: "5% 0 0 20%",
           }}
         >
           <Card border="primary" style={{ width: "18rem" }}>

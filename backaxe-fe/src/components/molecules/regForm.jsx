@@ -46,9 +46,6 @@ export const RegForm = () => {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <AccountCircleIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">
           Register
         </Typography>
