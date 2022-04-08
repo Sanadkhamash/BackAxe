@@ -15,23 +15,16 @@ class TransactionsViewSet(viewsets.ModelViewSet):
     queryset=models.Transaction.objects.all()
 
     def create(self,request,*args,**kwargs):
-        transaction = request.data
-        buyer = DjangoUser.objects.get(id=transaction["buyer"]) 
-        seller=DjangoUser.objects.get(id=transaction["seller"]) 
-        product=Product.objects.get(id=transaction["product"]) ,
-        b=UserSerializer(buyer)
-        s=UserSerializer(seller)
-        p=ProductSerializer(product)
-        pro = model_to_dict(product)
-        print(pro)
-        
-        trans = models.Transaction(
-            buyer=buyer,
-            seller=seller,
-            product=pro,
-        )
+        data=request.data
+        print(data)
+
+        buyer=request.data['buyer']
+        product=request.data['product']
+        print(buyer)
+        trans=models.Transaction.objects.create(
+            buyer_id= buyer, product_id=product
+            )
         trans.save()
         serializer = serializers.TransactionsSerializer(trans)
-        print(serializer.data)
-        return(Response(serializer.data))
+        return Response(serializer.data, status=201)
 

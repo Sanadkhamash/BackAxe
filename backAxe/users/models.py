@@ -8,13 +8,15 @@ from rest_framework.authtoken.models import Token
 class UserInfo(models.Model):
     
     user_id=models.ForeignKey(DjangoUser, on_delete=models.CASCADE)
+    first_name=models.CharField(max_length=50, null=True)
+    last_name=models.CharField(max_length=50, null=True)
     mobile=models.CharField(max_length=12)
     address=models.CharField(max_length=50)
     is_merchant=models.BooleanField(default=False)
     is_banned=models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user_id
+        return self.first_name
 
 class Report(models.Model):
 
