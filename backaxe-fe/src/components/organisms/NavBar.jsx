@@ -1,77 +1,76 @@
 import React from "react";
-import AppBar from "@mui/material/AppBar";
-import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
-import Toolbar from "@mui/material/Toolbar";
-import IconLabelTabs from "../molecules/navIcons";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { styled, alpha } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
+import "bootstrap/dist/css/bootstrap.css";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Container from "react-bootstrap/Container";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import Button from "react-bootstrap/Button";
+import { Link, useNavigate } from "react-router-dom";
+import { getCategories, getMakes } from "../../api/shop";
+import { UserStatus } from "../../App";
+import { Grid } from "@mui/material";
 
-const theme = createTheme();
+export function NavBar() {
+  const navigate = useNavigate();
+  const { value } = React.useContext(UserStatus);
+  let [loggedUser, setLoggedUser] = value;
+  let [makes, setMakes] = React.useState(0);
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: "15%",
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
-
-export const NavBar = () => {
+  let [category, setCategory] = React.useState(0);
+  React.useEffect(() => {
+    getCategories(setCategory);
+    getMakes(setMakes);
+  }, []);
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <Typography variant="h6" color="inherit">
-            backAxe
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-          <IconLabelTabs />
-        </Toolbar>
-      </AppBar>
-    </ThemeProvider>
+    <Grid containter xs={12}>
+      <Grid item xs={12}>
+        <Navbar style={{ zIndex: 1300 }} bg="light" expand="lg">
+          <Container fluid>
+            <Navbar.Brand
+              style={{ cursor: "pointer", color: "navi" }}
+              onClick={() => navigate(`/`)}
+            >
+              <h4>BackAxe</h4>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="navbarScroll" />
+            <Navbar.Collapse id="navbarScroll">
+              <Nav
+                className="me-auto my-2 my-lg-0"
+                style={{ maxHeight: "100px" }}
+                navbarScroll
+              >
+                <Nav.Link onClick={() => navigate(`/`)}>Home</Nav.Link>
+                <Nav.Link onClick={() => navigate(`/about`)}>About Us</Nav.Link>
+                {loggedUser ? (
+                  <NavDropdown title="Profile" id="navbarScrollingDropdown">
+                    <NavDropdown.Item>
+                      {" "}
+                      <Link to={`user/${loggedUser.id}/`}>Profile</Link>
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Item
+                      onClick={() => {
+                        localStorage.removeItem("access");
+                        localStorage.removeItem("user");
+                        localStorage.removeItem("refresh");
+                        setLoggedUser(null);
+                      }}
+                    >
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                ) : (
+                  <Nav.Link onClick={() => navigate(`/signin`)}>
+                    Sign In
+                  </Nav.Link>
+                )}
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </Grid>
+    </Grid>
   );
-};
+}

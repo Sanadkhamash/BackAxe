@@ -1,4 +1,5 @@
 from django.db import models
+from  django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -16,6 +17,7 @@ class Country(models.Model):
 
 class Make(models.Model):
     name=models.CharField(max_length=50)
+    photo = models.CharField(max_length=255, default="https://images.unsplash.com/photo-1580836618305-605c32623ae0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80")
     country=models.ForeignKey(Country, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
@@ -30,6 +32,7 @@ class Product(models.Model):
     date=models.DateTimeField(auto_now=True)
     make=models.ForeignKey(Make, on_delete=models.CASCADE)
     category=models.ManyToManyField(Category, null= True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
 

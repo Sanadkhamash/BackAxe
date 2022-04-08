@@ -1,44 +1,50 @@
-import React from 'react'
-import { listItemSecondaryActionClasses, TextField } from '@mui/material'
-import { Input, InputAdornment, AccountCircle } from '@mui/material'
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import React from "react";
+import { listItemSecondaryActionClasses, TextField } from "@mui/material";
+import { Input, InputAdornment, AccountCircle } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
-export const UnderLinedText = ({name,label}) => {
-  return (
-    <TextField id={name} label={label} variant="standard" name={name} />
-  )
-}
-
-export const underLinedTextErr = ({name,label}) => {
+export const UnderLinedText = ({ name, label }) => {
   return (
     <TextField
-    error
-    id={name}
-    name={name}
-    label={label}
-    defaultValue=""
-    helperText="Incorrect entry."
-    variant="standard"
-  />  )
-}
+      id={name}
+      label={label}
+      variant="standard"
+      name={name}
+      fullWidth
+    />
+  );
+};
+
+export const underLinedTextErr = ({ name, label }) => {
+  return (
+    <TextField
+      error
+      id={name}
+      name={name}
+      label={label}
+      defaultValue=""
+      helperText="Incorrect entry."
+      variant="standard"
+    />
+  );
+};
 
 export const StartIconText = (children) => {
   return (
     <Input
-    id="input-with-icon-adornment"
-    startAdornment={
-      <InputAdornment position="start">
-        {children}
-      </InputAdornment>
-    }
-  />  )
-}
+      id="input-with-icon-adornment"
+      startAdornment={
+        <InputAdornment position="start">{children}</InputAdornment>
+      }
+    />
+  );
+};
 
-export function Selectors({label, items, id}) {
-  const [value, setValue] = React.useState('');
+export function Selectors({ label, items, id }) {
+  const [value, setValue] = React.useState("");
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -58,7 +64,7 @@ export function Selectors({label, items, id}) {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          
+
           {/* {items.map((item,id)=>
           {return(
             <MenuItem value={10}>{item}</MenuItem>
@@ -66,9 +72,6 @@ export function Selectors({label, items, id}) {
           }         */}
         </Select>
       </FormControl>
-      </div>
+    </div>
   );
 }
-
-
-

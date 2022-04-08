@@ -10,7 +10,7 @@ const axiosService = axios.create({
 
 axiosService.interceptors.request.use(async (config) => {
   const token = JSON.parse(localStorage.getItem("access"));
-  if (token !== null) {
+  if (token) {
     config.headers.Authorization = "Bearer " + token;
     // @ts-ignore
     console.debug(
@@ -44,7 +44,6 @@ axiosService.interceptors.response.use(
   }
 );
 
-// @ts-ignore
 const refreshAuthLogic = async (failedRequest) => {
   const refreshToken = JSON.parse(localStorage.getItem("refresh"));
   if (refreshToken !== null) {

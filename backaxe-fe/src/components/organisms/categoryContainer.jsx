@@ -7,60 +7,79 @@ import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
-
-export default function CategoryContainer({ products }) {
+import { useNavigate, useParams } from "react-router-dom";
+import { getSingleCategory, getUserProducts } from "../../api/shop";
+import { borderColor } from "@mui/system";
+import { UserStatus } from "../../App";
+export default function CategoryContainer({ shop, prod, category }) {
   let navigate = useNavigate();
+  let [products, setProduct] = React.useState();
+  let { id } = useParams();
+  const { value } = React.useContext(UserStatus);
+  const [loggedUser, setLoggedUser] = value;
+
+  React.useEffect(() => {
+    !shop ? getUserProducts(setProduct, id) : setProduct(prod);
+  }, []);
 
   return (
     <main>
-      <Container sx={{ py: 8 }} maxWidth="md">
-        <Grid container spacing={4}>
+      <Container sx={{ py: 4 }} maxWidth="md">
+        <Grid container spacing={0}>
+          <h1 style={{ margin: "0 0 20px 0" }}>
+            {console.log(products && products)}
+            {category ? category.name : products[0].user.username}
+          </h1>
+
           {products &&
             products.map((item) => {
               return (
-                <Grid item xs={12} sm={6} md={4}>
-                  <Card
+                <Card
+                  sx={{
+                    height: "50%",
+                    width: "100%",
+                    display: "flex",
+                    marginBottom: "0.5%",
+                    borderStyle: "solid",
+                    borderColor: "grey",
+                  }}
+                >
+                  <CardMedia
+                    component="img"
                     sx={{
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
+                      pt: 0,
+                      width: "270px",
+                      height: "160px",
                     }}
-                  >
-                    <CardMedia
-                      component="img"
-                      sx={{
-                        pt: 0,
+                    image={item.image}
+                    alt="random"
+                  />
+                  <CardContent sx={{ flexGrow: 1 }} border>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {item.name}
+                    </Typography>
+                    <Typography>Amman | Jordan </Typography>
+                    <small>{item.make.name} | </small>
+                    {item.category.map((item) => {
+                      return <small>{item.name} </small>;
+                    })}
+                    <h5 color="red">JOD{item.price}</h5>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      onClick={() => {
+                        navigate(`/shop/${item.id}`);
                       }}
-                      image="https://source.unsplash.com/random"
-                      alt="random"
-                    />
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {item.name}
-                      </Typography>
-                      <Typography>
-                        This is a media card. You can use this section to
-                        describe the content.
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        onClick={() => {
-                          navigate(`/shop/${item.id}`);
-                        }}
-                        size="small"
-                      >
-                        Shop
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
+                      size="small"
+                    >
+                      Show Details...
+                    </Button>
+                  </CardActions>
+                </Card>
+                // </Grid>
               );
             })}
-          ;
         </Grid>
-        ;
       </Container>
     </main>
   );

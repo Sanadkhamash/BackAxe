@@ -1,16 +1,15 @@
 from email.policy import default
 from django.db import models
 from django.forms import IntegerField
-from users import models as UserModels
+from  django.contrib.auth.models import User as authUser
 from shop import models as ShopModels
 
 # Create your models here.
 
 
 class Transaction(models.Model):
-    buyer=models.ForeignKey(UserModels.UserInfo, on_delete=models.CASCADE, related_name='buyer')
-    seller=models.ForeignKey(UserModels.UserInfo, on_delete=models.CASCADE, related_name='seller')
-    product=models.OneToOneField(ShopModels.Product, on_delete=models.CASCADE, default=0)
+    buyer=models.ForeignKey(authUser, on_delete=models.CASCADE, default=1)
+    product=models.ForeignKey(ShopModels.Product, on_delete=models.CASCADE, default=1)
     date=models.DateField(auto_now=True)
     time=models.TimeField(auto_now=True)
     status=models.IntegerField(default=0)
