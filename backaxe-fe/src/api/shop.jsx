@@ -47,12 +47,13 @@ export const AddProduct = async (data) => {
       "Content-Type": "application/json",
     },
   };
-  axiosService
+  let response = await axiosService
     .post("http://127.0.0.1:8000/shop/products/", data, headers)
-    .then((res) => {})
+    .then((res) => res.data)
     .catch((err) => {
       console.log(err);
     });
+  return response;
 };
 
 export const getSingleCategory = async (setProducts, id) => {

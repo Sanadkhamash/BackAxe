@@ -48,7 +48,7 @@ export const Shop = () => {
         <CssBaseline />
         <Grid container justifyContent="start" spacing={3} ml={2}>
           <Grid item sm={10} md={8}>
-            {products ? (
+            {products && category ? (
               <>
                 <CategoryContainer
                   category={category}

@@ -18,7 +18,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         data=request.data
-        product=models.Product.objects.create(name=data["name"],description=data["description"],price=data["price"],image=data["image"],quantity=data["quantity"], make_id=data['make']['id'])
+        product=models.Product.objects.create(name=data["name"],description=data["description"],price=data["price"],image=data["image"],quantity=data["quantity"], make_id=data['make']['id'], user_id=request.user.id)
         product.save()
         print(data['category'])
         cat = models.Category.objects.get(id = int(data['category']['id']))

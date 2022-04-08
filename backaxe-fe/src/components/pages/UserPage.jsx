@@ -6,14 +6,6 @@ import { SideBar } from "../organisms/sidebar";
 import LabTabs from "../organisms/tabs";
 
 export const UserPage = () => {
-  const { id } = useParams();
-  let [product, setProduct] = useState();
-  const { value } = React.useContext(UserStatus);
-
-  useEffect(() => {
-    getUserProducts(setProduct, id);
-  }, []);
-
   return (
     <div style={{ display: "flex" }}>
       <LabTabs />

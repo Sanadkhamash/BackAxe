@@ -10,13 +10,18 @@ import { EditForm } from "../molecules/editForm";
 import CategoryContainer from "./categoryContainer";
 import { UserStatus } from "../../App";
 import { useParams } from "react-router-dom";
+import { getUserProducts } from "../../api/shop";
 
 export default function LabTabs() {
   const [value1, setValue] = React.useState("1");
-
   const { value } = React.useContext(UserStatus);
   let [loggedUser, setLoggedUser] = value;
+  let [product, setProduct] = React.useState();
   let { id } = useParams();
+
+  React.useEffect(() => {
+    getUserProducts(setProduct, id);
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -38,9 +43,11 @@ export default function LabTabs() {
           <Info />
         </TabPanel>
 
-        <TabPanel value="3">
-          <CategoryContainer />
-        </TabPanel>
+        {product && (
+          <TabPanel value="3">
+            <CategoryContainer prod={product} />
+          </TabPanel>
+        )}
 
         <TabPanel value="2">
           <EditForm />

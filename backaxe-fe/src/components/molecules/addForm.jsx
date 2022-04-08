@@ -4,19 +4,20 @@ import { AddProduct, getCategories, getMakes } from "../../api/shop";
 import { checkIfDataIsFilled } from "../../helpers/validators";
 import { Grid } from "@mui/material";
 import { SuccessBtn } from "../atoms/buttons";
+import { useNavigate } from "react-router-dom";
 
 export const AddForm = () => {
   let [category, setCategory] = useState(0);
   let [makes, setMakes] = useState(0);
+  let [response, setResponse] = useState();
+  let navigate = useNavigate();
 
   const cardHeader = {
     backgroundColor: "lightGray",
     color: "black",
     padding: "0 0 0 10px",
   };
-
   const textAlign = { textAlign: "center" };
-
   const containerStyle = {
     margin: "15px",
     borderStyle: "solid",
@@ -27,7 +28,8 @@ export const AddForm = () => {
     getCategories(setCategory);
     getMakes(setMakes);
   }, []);
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let canBeSubmitted = checkIfDataIsFilled(e.target);
     if (canBeSubmitted) {
@@ -44,8 +46,9 @@ export const AddForm = () => {
           id: e.target.category.value,
         },
       };
-      console.log(productDetails);
-      AddProduct(productDetails);
+      let response = await AddProduct(productDetails);
+      console.log(response);
+      navigate(`/shop/${response.id}`);
     }
   };
   return (

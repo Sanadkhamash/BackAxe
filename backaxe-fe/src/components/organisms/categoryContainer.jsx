@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getSingleCategory, getUserProducts } from "../../api/shop";
 import { borderColor } from "@mui/system";
 import { UserStatus } from "../../App";
+
 export default function CategoryContainer({ shop, prod, category }) {
   let navigate = useNavigate();
   let [products, setProduct] = React.useState();
@@ -28,7 +29,7 @@ export default function CategoryContainer({ shop, prod, category }) {
         <Grid container spacing={0}>
           <h1 style={{ margin: "0 0 20px 0" }}>
             {console.log(products && products)}
-            {category ? category.name : products[0].user.username}
+            {category ? category.name : products && products[0].user.username}
           </h1>
 
           {products &&
